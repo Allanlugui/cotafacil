@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0b1020" />
+  <title>CotaFácil — Cotação inteligente na web</title>
+  <meta name="description" content="Encontre ofertas, compare preços e classifique lojas por custo-benefício, avaliação e sinais de pós-venda." />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="bg-grid"></div>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">C</span><span>Cota<span>Fácil</span></span></div>
+    <div class="topbar-status"><span class="status-dot"></span> Busca inteligente ativa</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">COTAÇÃO INTELIGENTE</span>
+        <h1>Não procure só o menor preço.<br /><em>Encontre a melhor compra.</em></h1>
+        <p>Digite o produto. A plataforma compara ofertas da web e organiza as opções por preço, avaliação, entrega e sinais de confiança da loja.</p>
+      </div>
+
+      <form id="quoteForm" class="search-card">
+        <div class="search-row">
+          <div class="search-input-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.6-3.6"></path></svg>
+            <input id="productInput" name="product" autocomplete="off" placeholder="Ex.: notebook Lenovo IdeaPad 16 GB" required />
+          </div>
+          <button id="searchButton" class="primary-btn" type="submit"><span>Fazer cotação</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+        </div>
+        <div class="search-options">
+          <label><span>Local</span><input id="locationInput" value="Brasil" aria-label="Local da busca" /></label>
+          <label><span>Até</span><select id="resultsInput" aria-label="Quantidade de resultados"><option value="20" selected>20 ofertas</option><option value="10">10 ofertas</option><option value="30">30 ofertas</option></select></label>
+          <label class="toggle"><input id="shippingToggle" type="checkbox" checked /><span class="toggle-ui"></span><span>Priorizar frete/entrega</span></label>
+        </div>
+      </form>
+
+      <div class="trust-strip">
+        <span>O ranking considera</span>
+        <b>Preço</b><span>+</span><b>Avaliação</b><span>+</span><b>Reputação</b><span>+</span><b>Entrega</b><span>+</span><b>Pós-venda</b>
+      </div>
+    </section>
+
+    <section id="resultsSection" class="results-section hidden">
+      <div class="results-head">
+        <div>
+          <div class="section-kicker">RESULTADO DA COTAÇÃO</div>
+          <h2 id="resultsTitle">Ofertas encontradas</h2>
+          <p id="resultsMeta">Comparando as ofertas localizadas…</p>
+        </div>
+        <div class="toolbar">
+          <button id="exportBtn" class="export-btn" type="button" disabled>⬇ Exportar cotação</button>
+          <button class="sort-btn active" data-sort="score">Melhor compra</button>
+          <button class="sort-btn" data-sort="price">Menor preço</button>
+          <button class="sort-btn" data-sort="rating">Melhor avaliação</button>
+        </div>
+      </div>
+
+      <div class="score-explainer">
+        <div><span class="mini-dot price"></span><strong>Preço</strong><small>peso 45%</small></div>
+        <div><span class="mini-dot rating"></span><strong>Avaliação</strong><small>peso 25%</small></div>
+        <div><span class="mini-dot reviews"></span><strong>Reputação</strong><small>peso 10%</small></div>
+        <div><span class="mini-dot delivery"></span><strong>Entrega</strong><small>peso 10%</small></div>
+        <div><span class="mini-dot support"></span><strong>Pós-venda</strong><small>peso 10%</small></div>
+      </div>
+
+      <div id="loading" class="loading-card hidden">
+        <div class="spinner"></div><div><strong>Pesquisando ofertas…</strong><span>Consultando resultados de compras e preparando o ranking.</span></div>
+      </div>
+
+      <div id="error" class="error-card hidden"></div>
+      <div id="resultsGrid" class="results-grid"></div>
+    </section>
+
+    <section class="how-section">
+      <div class="section-kicker">COMO FUNCIONA</div>
+      <h2>Uma cotação pensada para decidir, não apenas para pesquisar.</h2>
+      <div class="how-grid">
+        <article><span class="step">01</span><h3>Você descreve</h3><p>Nome do produto, modelo, capacidade, cor ou qualquer detalhe importante.</p></article>
+        <article><span class="step">02</span><h3>A web é consultada</h3><p>A busca encontra ofertas de diferentes lojas e reúne preço, avaliação, reviews, entrega e origem.</p></article>
+        <article><span class="step">03</span><h3>O ranking pondera</h3><p>As ofertas recebem um índice de compra para evitar que um preço baixo isolado domine a cotação.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>CotaFácil</span><span>•</span><span>Comparação de ofertas para uso pessoal e compras.</span>
+  </footer>
+
+  <template id="resultTemplate">
+    <article class="result-card">
+      <div class="rank-badge">#<span class="rank"></span></div>
+      <div class="product-thumb-wrap"><img class="product-thumb" alt="" /></div>
+      <div class="product-main">
+        <div class="product-source"><img class="source-icon" alt="" /><span class="source"></span></div>
+        <h3 class="product-title"></h3>
+        <div class="product-rating"><span class="stars"></span><strong class="rating"></strong><span class="reviews"></span></div>
+        <div class="chips"><span class="chip delivery-chip"></span><span class="chip support-chip"></span></div>
+      </div>
+      <div class="score-panel">
+        <span class="score-label">Índice de compra</span><strong class="score"></strong><div class="score-bar"><span></span></div>
+        <div class="score-breakdown"><span>Preço <b class="sp"></b></span><span>Loja <b class="ss"></b></span><span>Entrega <b class="sd"></b></span></div>
+      </div>
+      <div class="price-panel"><span class="price-label">Oferta</span><strong class="price"></strong><span class="old-price"></span><a class="offer-btn" target="_blank" rel="noopener noreferrer">Ver oferta <svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"></path></svg></a></div>
+    </article>
+  </template>
+
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.2/jspdf.umd.min.js"></script>
+  <script src="/app.js" defer></script>
+</body>
+</html>

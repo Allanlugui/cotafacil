@@ -1,0 +1,12 @@
+{
+  "name": "cotafacil",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page de cotação inteligente com Google Shopping via SerpApi.",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "vercel": "vercel dev"
+  },
+  "engines": {"node": ">=18"}
+}
