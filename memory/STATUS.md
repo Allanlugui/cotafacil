@@ -13,5 +13,9 @@
 ## O que estava sendo implementado
 - Nada pendente no git. README descreve ranking + exportação (xlsx/pdf/csv/print) como prontos.
 
+## Validação em prod (2026-09-26, https://cotafacil-blond.vercel.app/)
+- `/` → 200, `/app.js` → 200 (crash `document is not defined` RESOLVIDO)
+- `/api/quote` → 200 porém `source:demo` — `SERPAPI_KEY` ausente na Vercel (aguardando config + redeploy)
+
 ## Próximo passo
-- TAREFA_DO_DIA não informada no protocolo. Aguardando definição do usuário.
+- Configurar `SERPAPI_KEY` em Production na Vercel + redeploy; depois revalidar `/api/quote` (esperado `source:serpapi`).
