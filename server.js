@@ -40,8 +40,11 @@ const MIME = {
 function serveStatic(req, res) {
   let pathname = new URL(req.url, 'http://localhost').pathname;
   if (pathname === '/') pathname = '/index.html';
-  const file = path.join(ROOT, decodeURIComponent(pathname).replace(/^\/+/, ''));
-  if (!file.startsWith(ROOT) || !fs.existsSync(file) || fs.statSync(file).isDirectory()) {
+  const rel = decodeURIComponent(pathname).replace(/^\/+/, '');
+  // Paridade com a Vercel: estáticos vivem em public/; raiz como fallback.
+  const candidates = [path.join(ROOT, 'public', rel), path.join(ROOT, rel)];
+  const file = candidates.find((f) => f.startsWith(ROOT) && fs.existsSync(f) && !fs.statSync(f).isDirectory());
+  if (!file) {
     res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
     res.end('Não encontrado');
     return;

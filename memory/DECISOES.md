@@ -6,3 +6,4 @@
 - D-04: Pós-venda conservador: sem campo oficial no Shopping API; só bônus por sinais textuais (garantia/troca/devolução/SAC), nunca nota alta inventada.
 - D-05: Exportação 100% client-side (SheetJS + jsPDF via CDN); CSV com BOM + `;`; PDF jsPDF manual; print via `window.open`.
 - D-06: Limite 1–30, padrão 20. Dedup por `source|title`. Ordenações: score / price / rating.
+- D-07: Layout canônico Vercel — estáticos em `public/` (`index.html`, `app.js`, `styles.css`), functions só em `api/`. `server.js` local serve `public/` primeiro, raiz como fallback.
